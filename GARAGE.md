@@ -8,7 +8,7 @@ Complétez ces étapes **avant le vendredi 23:59 CET** du cycle en cours. Dates 
 
 ## 2. Repo public
 
-- [ ] Pousser ce repo sur GitHub (ex. `your-org/profile-pulse`)
+- [x] Pousser ce repo sur GitHub — [github.com/ToXY0392/profile-pulse](https://github.com/ToXY0392/profile-pulse) (branche `garage/github-and-registration`)
 - [ ] Vérifier que le README est à jour
 
 ## 3. Déploiement HTTPS
@@ -39,7 +39,7 @@ npx vercel --prod
 | **Nom** | Profile Pulse |
 | **Pitch** | Profile Pulse — votre identité Circles en un coup d'œil : avatar, trust, solde CRC, puis connexion par signature et transaction test, le tout dans Gnosis App. |
 | **URL live** | _(votre URL Vercel)_ |
-| **Repo** | _(URL GitHub)_ |
+| **Repo** | https://github.com/ToXY0392/profile-pulse |
 | **README** | Lien vers README.md du repo |
 
 ## 6. Qualité (avant envoi)
