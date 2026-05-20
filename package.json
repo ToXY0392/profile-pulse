@@ -2,6 +2,10 @@
   "name": "gnosis-app",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.33.4",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,6 +13,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@aboutcircles/miniapp-sdk": "^0.1.32",
+    "@aboutcircles/sdk": "^0.1.32",
     "next": "16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.4"
