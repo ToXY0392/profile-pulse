@@ -5,7 +5,9 @@ import { useCallback, useState } from "react";
 import { useWallet } from "@/components/wallet/WalletProvider";
 import { useCirclesAvatar } from "@/hooks/use-circles-avatar";
 import { useSignIn } from "@/hooks/use-sign-in";
+import { trackEvent } from "@/lib/analytics";
 import { addBooking } from "@/lib/bookings-storage";
+import { humanizeCirclesError } from "@/lib/circles-errors";
 import {
   BOOKING_AMOUNT_ATTO,
   type Mentor,
@@ -61,12 +63,14 @@ export function useBookCall(mentor: Mentor, selectedSlot: TimeSlot | null) {
         slotId: selectedSlot.id,
         slotLabel: selectedSlot.label,
         txHash,
+        imageUrl: mentor.imageUrl,
       });
+      trackEvent("booking_success", { mentor: mentor.slug });
       setStatus({ kind: "success", txHash });
     } catch (err) {
       setStatus({
         kind: "error",
-        error: err instanceof Error ? err.message : "Échec de la réservation",
+        error: humanizeCirclesError(err),
       });
     }
   }, [address, avatar, mentor, ready, selectedSlot, signedIn]);

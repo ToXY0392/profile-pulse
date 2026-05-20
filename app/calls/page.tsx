@@ -6,11 +6,12 @@ import { useMemo } from "react";
 import { MentorCard } from "@/components/mentors/MentorCard";
 import { TrustMentorButton } from "@/components/mentors/TrustMentorButton";
 import { useWallet } from "@/components/wallet/WalletProvider";
+import { useMentors } from "@/hooks/use-mentors";
 import { getBookings } from "@/lib/bookings-storage";
-import { getMentorBySlug } from "@/lib/mentors";
 
 export default function CallsPage() {
   const { address } = useWallet();
+  const { getBySlug } = useMentors();
   const bookings = useMemo(() => getBookings(address), [address]);
 
   return (
@@ -24,7 +25,7 @@ export default function CallsPage() {
       {address && bookings.length === 0 && (
         <p className="text-sm text-zinc-500">
           Aucun appel réservé. Réservez un créneau depuis{" "}
-          <Link href="/mentors" className="text-violet-600 underline">
+          <Link href="/mentors" className="font-medium text-violet-600 underline">
             Mentors
           </Link>
           .
@@ -32,18 +33,29 @@ export default function CallsPage() {
       )}
       <ul className="flex flex-col gap-3">
         {bookings.map((booking) => {
-          const mentor = getMentorBySlug(booking.mentorSlug);
+          const mentor = getBySlug(booking.mentorSlug);
           if (!mentor) return null;
           return (
             <li key={booking.id}>
-              <MentorCard
-                mentor={{
-                  ...mentor,
-                  name: booking.mentorName,
-                  tags: booking.tags,
-                }}
-                action={<TrustMentorButton mentor={mentor} />}
-              />
+              <div className="space-y-1">
+                <MentorCard
+                  mentor={{
+                    ...mentor,
+                    name: booking.mentorName,
+                    tags: booking.tags,
+                    imageUrl: booking.imageUrl ?? mentor.imageUrl,
+                  }}
+                  action={<TrustMentorButton mentor={mentor} />}
+                />
+                <p className="px-1 text-xs text-zinc-500">
+                  Créneau : <span className="font-medium">{booking.slotLabel}</span>
+                  {" · "}
+                  {new Date(booking.bookedAt).toLocaleDateString("fr-FR", {
+                    day: "numeric",
+                    month: "short",
+                  })}
+                </p>
+              </div>
             </li>
           );
         })}

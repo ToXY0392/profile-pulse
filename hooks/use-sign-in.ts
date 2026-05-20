@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useState } from "react";
 
 import { useWallet } from "@/components/wallet/WalletProvider";
+import { trackEvent } from "@/lib/analytics";
 import {
   buildSignInMessage,
   clearSignedInSession,
@@ -34,6 +35,7 @@ export function useSignIn() {
           throw new Error("Signature non vérifiée par l'hôte");
         }
         setSignedInSession(address, true);
+        trackEvent("sign_in_success");
         setSessionVersion((v) => v + 1);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Erreur inconnue");

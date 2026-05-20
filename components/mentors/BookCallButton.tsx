@@ -1,5 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
 import { Button } from "@/components/ui/Button";
 import { useBookCall } from "@/hooks/use-book-call";
 import { BOOKING_AMOUNT_CRC, type Mentor, type TimeSlot } from "@/lib/mentors";
@@ -12,7 +15,15 @@ export function BookCallButton({
   mentor: Mentor;
   selectedSlot: TimeSlot | null;
 }) {
+  const router = useRouter();
   const { book, status, canBook } = useBookCall(mentor, selectedSlot);
+
+  useEffect(() => {
+    if (status.kind === "success") {
+      const t = setTimeout(() => router.push("/calls"), 1500);
+      return () => clearTimeout(t);
+    }
+  }, [status, router]);
 
   return (
     <div className="space-y-2">
@@ -32,7 +43,7 @@ export function BookCallButton({
       )}
       {status.kind === "success" && (
         <p className="text-center text-xs text-emerald-700">
-          Réservé — tx {shortenAddress(status.txHash, 6)}
+          Réservé — redirection vers Mes appels… ({shortenAddress(status.txHash, 6)})
         </p>
       )}
       {status.kind === "error" && (

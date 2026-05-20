@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { VercelInsights } from "@/components/analytics/VercelInsights";
 import { AppShell } from "@/components/layout/AppShell";
 import { WalletProvider } from "@/components/wallet/WalletProvider";
 
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body className="min-h-full font-sans">
         <WalletProvider>
           <AppShell>{children}</AppShell>
+          <VercelInsights />
         </WalletProvider>
       </body>
     </html>

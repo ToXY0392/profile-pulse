@@ -20,14 +20,15 @@ export function SlotGrid({
             key={slot.id}
             type="button"
             onClick={() => onSelect(slot)}
-            title={slot.label}
-            className={`aspect-square rounded-lg border text-xs font-medium transition-colors ${
+            aria-pressed={selected}
+            aria-label={slot.label}
+            className={`flex min-h-[4rem] flex-col items-center justify-center rounded-lg border px-1 py-2 text-center text-[10px] leading-tight font-medium whitespace-pre-line transition-colors ${
               selected
-                ? "border-violet-600 bg-violet-50 text-violet-800"
-                : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300"
+                ? "border-violet-600 bg-violet-50 text-violet-800 ring-1 ring-violet-600"
+                : "border-zinc-200 bg-white text-zinc-600 hover:border-violet-300 hover:bg-violet-50/50"
             }`}
           >
-            <span className="sr-only">{slot.label}</span>
+            {slot.shortLabel}
           </button>
         );
       })}

@@ -9,26 +9,30 @@ Complétez ces étapes **avant le vendredi 23:59 CET** du cycle en cours. Dates 
 ## 2. Repo public
 
 - [x] Pousser ce repo sur GitHub — [github.com/ToXY0392/profile-pulse](https://github.com/ToXY0392/profile-pulse) (branche `garage/github-and-registration`)
-- [ ] Vérifier que le README est à jour
+- [x] README à jour (dashboard + mentors + parcours test)
 
 ## 3. Déploiement HTTPS
 
-- [ ] Déployer sur Vercel (ou autre hébergeur HTTPS)
-- [ ] Noter l'URL stable de production (ex. `https://profile-pulse.vercel.app`)
+- [x] Déployé sur Vercel
+- [x] URL stable : **https://gnosis-app-five.vercel.app**
+- [x] Variable Vercel `NEXT_PUBLIC_MENTOR_DEFAULT_ADDRESS` (adresse Circles pour PAY/TRUST)
 
 Commandes :
 
 ```bash
 cd Gnosis-App
 pnpm build
+printf '%s' '0xVotreAdresseCircles' | npx vercel env add NEXT_PUBLIC_MENTOR_DEFAULT_ADDRESS production
 npx vercel --prod
 ```
 
 ## 4. Test playground
 
 - [ ] Ouvrir [circles.gnosis.io/playground](https://circles.gnosis.io/playground)
-- [ ] Coller l'URL de déploiement
-- [ ] Vérifier wallet connecté, profil, sign-in, transaction test
+- [ ] Coller `https://gnosis-app-five.vercel.app`
+- [ ] Dashboard : wallet, profil, connexion signature
+- [ ] Mentors : Login → créneau → PAY 100 CRC
+- [ ] Mes appels : réservation visible → TRUST
 
 ## 5. Enregistrement mini-app
 
@@ -37,16 +41,16 @@ npx vercel --prod
 | Champ | Valeur suggérée |
 |-------|-----------------|
 | **Nom** | Profile Pulse |
-| **Pitch** | Profile Pulse — votre identité Circles en un coup d'œil : avatar, trust, solde CRC, puis connexion par signature et transaction test, le tout dans Gnosis App. |
-| **URL live** | _(votre URL Vercel)_ |
+| **Pitch** | Profile Pulse — identité Circles (avatar, trust, CRC), connexion par signature, réservez un appel mentor : payez 100 CRC et trustez votre mentor, dans Gnosis App. |
+| **URL live** | https://gnosis-app-five.vercel.app |
 | **Repo** | https://github.com/ToXY0392/profile-pulse |
 | **README** | Lien vers README.md du repo |
 
 ## 6. Qualité (avant envoi)
 
 - [ ] Relire [garage.aboutcircles.com/rules](https://garage.aboutcircles.com/rules)
-- [ ] Parcours complet en moins de 2 minutes
-- [ ] Primitives Circles au cœur du produit (pas décoratives)
+- [ ] Parcours complet en moins de 2 minutes (voir README)
+- [ ] Primitives Circles au cœur : signMessage, sendTransactions, transfer, trust
 
 ## Aide
 

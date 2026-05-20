@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 
 import { useCirclesAvatar } from "@/hooks/use-circles-avatar";
 import { useSignIn } from "@/hooks/use-sign-in";
+import { trackEvent } from "@/lib/analytics";
+import { humanizeCirclesError } from "@/lib/circles-errors";
 import { type Mentor, isMentorConfigured } from "@/lib/mentors";
 
 type TrustStatus =
@@ -65,11 +67,12 @@ export function useTrustMentor(mentor: Mentor) {
     try {
       const receipt = await avatar.trust.add(mentor.circlesAddress!);
       setAlreadyTrusting(true);
+      trackEvent("trust_success", { mentor: mentor.slug });
       setStatus({ kind: "success", txHash: receipt.transactionHash });
     } catch (err) {
       setStatus({
         kind: "error",
-        error: err instanceof Error ? err.message : "Échec du trust",
+        error: humanizeCirclesError(err),
       });
     }
   }, [avatar, mentor, ready, signedIn]);
